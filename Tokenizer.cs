@@ -103,7 +103,7 @@ public class Tokenizer
         sb.Append(str, 0, start);
         sb.Append(fakeVal);
         sb.Append(str.AsSpan(end + 2));
-        return Parse(sb.ToString());
+        return Parse(sb.ToString(), dataSets);
     }
     private static void ParseMustashText(string str, int start, int end, out string className, out string methodName, out BasicList<string> arguments)
     {
