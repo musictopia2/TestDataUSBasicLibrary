@@ -10,7 +10,8 @@ public class DataSet : IHasRandomizer
     {
         return Notifier;
     }
-    
+    //so if the dataset wants to use a filtered list, can do.
+    public IRandomizer RandomFiltered => _randomizer!;
     /// <summary>
     /// See <see cref="SeedNotifier"/>.
     /// </summary>

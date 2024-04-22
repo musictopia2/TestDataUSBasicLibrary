@@ -23,15 +23,21 @@ public class Faker : IHasRandomizer, IHasContext
     /// <summary>
     /// Generate numbers, booleans, and decimals.
     /// </summary>
-    public Randomizer Random
+    public IRandomizer Random
     {
         get => _randomizer ?? (Random = new Randomizer());
         set
         {
-            _randomizer = value;
-            Notifier.Notify(value);
+            if (value is Randomizer rans)
+            {
+                _randomizer = rans;
+                Notifier.Notify(rans);
+                return;
+            }
+            throw new CustomBasicException("Only a standard randomizer is supported.  Did this way so intellisense would work the way as intended in visual studio when using fakers");
         }
     }
+    Randomizer IHasRandomizer.Random { set => _randomizer = value; }
     public Faker()
     {
         Address = Notifier.Flow(new Address());
