@@ -98,7 +98,15 @@ public class Tokenizer
         {
             throw new ArgumentException($"Class {className} with method name {methodName} had too many arguments sent in");
         }
-        string fakeVal = details.Invoke!(currentObject, arguments);
+        string fakeVal = "";
+        try
+        {
+            fakeVal = details.Invoke!(currentObject, arguments);
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException("Error when invoking the command.  Most likely the arguments are incorrect.", ex);
+        }
         var sb = new StringBuilder();
         sb.Append(str, 0, start);
         sb.Append(fakeVal);
