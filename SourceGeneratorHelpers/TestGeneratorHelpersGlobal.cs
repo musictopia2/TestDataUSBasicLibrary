@@ -1,6 +1,4 @@
-﻿using TestDataUSBasicLibrary.SourceGeneratorHelpers;
-
-namespace TestDataUSBasicLibrary;
+﻿namespace TestDataUSBasicLibrary.SourceGeneratorHelpers;
 public static class TestGeneratorHelpersGlobal<T>
     where T : class
 {

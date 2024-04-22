@@ -9,6 +9,9 @@ public class Faker<T> : IRuleSet<T>
     protected internal readonly MultiDictionary<string, string, PopulateAction<T>> Actions =
       new(StringComparer.OrdinalIgnoreCase);
     protected internal readonly Dictionary<string, FinalizeAction<T>> FinalizeActions = new(StringComparer.OrdinalIgnoreCase);
+
+    protected internal readonly MultiDictionary<string, string, PopulateAction<T>> ActionsFromRules =
+     new(StringComparer.OrdinalIgnoreCase);
     protected internal Dictionary<string, Func<Faker, T>> CreateActions = new(StringComparer.OrdinalIgnoreCase);
     protected internal Dictionary<string, bool> StrictModes = [];
     protected internal bool? IsValid { get; set; }
@@ -176,7 +179,7 @@ public class Faker<T> : IRuleSet<T>
             PropertyName = guid,
             ProhibitInStrictMode = true
         };
-        Actions.Add(_currentRuleSet, guid, rule);
+        ActionsFromRules.Add(_currentRuleSet, guid, rule);
         return this;
     }
     /// <summary>
@@ -405,11 +408,11 @@ public class Faker<T> : IRuleSet<T>
     /// you'll need to include the `default` rule set name in the comma separated
     /// list of rules to run. (ex: "ruleSetA, ruleSetB, default")
     /// </param>
-    public virtual List<T> Generate(int count, string? ruleSets = null)
+    public virtual BasicList<T> Generate(int count, string? ruleSets = null)
     {
         return Enumerable.Range(1, count)
            .Select(i => Generate(ruleSets))
-           .ToList();
+           .ToBasicList();
     }
 
     /// <summary>
@@ -514,6 +517,7 @@ public class Faker<T> : IRuleSet<T>
                         PopulateProperty(instance, action);
                     }
                 }
+                PopulateFromRules(instance, ruleSet);
             }
             foreach (var ruleSet in ruleSets)
             {
@@ -521,6 +525,16 @@ public class Faker<T> : IRuleSet<T>
                 {
                     finalizer.Action!(FakerHub, instance);
                 }
+            }
+        }
+    }
+    private void PopulateFromRules(T instance, string? ruleSet)
+    {
+        if (ActionsFromRules.TryGetValue(ruleSet!, out var populateActions))
+        {
+            foreach (var item in populateActions)
+            {
+                item.Value.Action!.Invoke(FakerHub, instance);
             }
         }
     }
