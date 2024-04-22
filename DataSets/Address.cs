@@ -80,18 +80,28 @@ public class Address : InternalDataSet
     /// Get a random state state.
     /// </summary>
     /// <returns>A random state.</returns>
-    public string State()
+    public string State(string city = "")
     {
-        return GetRandomListItem("state");
+        if (city == "")
+        {
+            return GetRandomListItem("state");
+        }
+        //if the city chosen does not exist, then raise error.
+        return "";
     }
 
     /// <summary>
     /// Get a state abbreviation.
     /// </summary>
     /// <returns>An abbreviation for a random state.</returns>
-    public string StateAbbr()
+    public string StateAbbr(string city = "")
     {
-        return GetRandomListItem("state_abbr");
+        if (city == "")
+        {
+            return GetRandomListItem("state_abbr");
+        }
+        //we don't have anything yet for city/state combinations.
+        return "";
     }
     /// <summary>
     /// Get a Latitude.
