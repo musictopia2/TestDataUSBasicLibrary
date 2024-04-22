@@ -23,8 +23,13 @@ public class Faker<T> : IRuleSet<T>
         }
         _mappings = TestGeneratorHelpersGlobal<T>.MasterContext.GetProperties();
         CreateActions[Default] = faker => TestGeneratorHelpersGlobal<T>.MasterContext.CreateNewObject();
-        FakerHub = new();
+        FakerHub = StartFaker(); //so if you need another faker for other things, you have that choice.
     }
+    protected virtual Faker StartFaker()
+    {
+        return new();
+    }
+
     /// <summary>
     /// Clones the internal state of a <seealso cref="Faker{T}"/> into a new <seealso cref="Faker{T}"/> so that
     /// both are isolated from each other. The clone will have internal state
@@ -234,32 +239,32 @@ public class Faker<T> : IRuleSet<T>
     /// Create a rule for a hidden property or field.
     /// Used in advanced scenarios to create rules for hidden properties or fields.
     /// </summary>
-    /// <param name="propertyOrFieldName">The property name or field name of the member to create a rule for.</param>
-    public virtual Faker<T> RuleFor<TProperty>(string propertyOrFieldName, Func<Faker, TProperty> setter)
+    /// <param name="prop">The property name or field name of the member to create a rule for.</param>
+    public virtual Faker<T> RuleFor<TProperty>(string prop, Func<Faker, TProperty> setter)
     {
-        EnsureMemberExists(propertyOrFieldName,
-           $"The property or field {propertyOrFieldName} was not found on {typeof(T)}. " +
-           $"Can't create a rule for {typeof(T)}.{propertyOrFieldName} when {propertyOrFieldName} " +
-           $"cannot be found. Try creating a custom IBinder for Faker<T> with the appropriate " +
-           $"System.Reflection.BindingFlags that allows deeper reflection into {typeof(T)}.");
+        EnsureMemberExists(prop,
+           $"The property or field {prop} was not found on {typeof(T)}. " +
+           $"Can't create a rule for {typeof(T)}.{prop} when {prop} " +
+           $"cannot be found. Try creating changing the implementation of IMapPropertiesForTesting or fix those bugs  " +
+           $"in order to capture the value for {typeof(T)}.");
 
-        return AddRule(propertyOrFieldName, (f, t) => setter(f)!);
+        return AddRule(prop, (f, t) => setter(f)!);
     }
 
     /// <summary>
     /// Create a rule for a hidden property or field.
     /// Used in advanced scenarios to create rules for hidden properties or fields.
     /// </summary>
-    /// <param name="propertyOrFieldName">The property name or field name of the member to create a rule for.</param>
-    public virtual Faker<T> RuleFor<TProperty>(string propertyOrFieldName, Func<Faker, T, TProperty> setter)
+    /// <param name="prop">The property name or field name of the member to create a rule for.</param>
+    public virtual Faker<T> RuleFor<TProperty>(string prop, Func<Faker, T, TProperty> setter)
     {
-        EnsureMemberExists(propertyOrFieldName,
-           $"The property or field {propertyOrFieldName} was not found on {typeof(T)}. " +
-           $"Can't create a rule for {typeof(T)}.{propertyOrFieldName} when {propertyOrFieldName} " +
-           $"cannot be found. Try creating a custom IBinder for Faker<T> with the appropriate " +
-           $"System.Reflection.BindingFlags that allows deeper reflection into {typeof(T)}.");
+        EnsureMemberExists(prop,
+           $"The property or field {prop} was not found on {typeof(T)}. " +
+           $"Can't create a rule for {typeof(T)}.{prop} when {prop} " +
+           $"cannot be found. Try creating changing the implementation of IMapPropertiesForTesting or fix those bugs  " +
+           $"in order to capture the value for {typeof(T)}.");
 
-        return AddRule(propertyOrFieldName, (f, t) => setter(f, t)!);
+        return AddRule(prop, (f, t) => setter(f, t)!);
     }
 
 

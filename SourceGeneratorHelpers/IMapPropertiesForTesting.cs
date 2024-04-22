@@ -1,4 +1,4 @@
-﻿namespace TestDataUSBasicLibrary;
+﻿namespace TestDataUSBasicLibrary.SourceGeneratorHelpers;
 public interface IMapPropertiesForTesting<T>
     where T : class
 {

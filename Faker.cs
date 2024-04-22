@@ -53,6 +53,11 @@ public class Faker : IHasRandomizer, IHasContext
         Music = Notifier.Flow(new Music());
         Events = Notifier.Flow(new Events());
         Hashids = new Hashids();
+        FinishInit(); //so any other things a custom faker needs to do, it can do.
+    }
+    protected virtual void FinishInit()
+    {
+
     }
     private DateTime? _localDateTimeRef;
 
@@ -311,4 +316,25 @@ public class Faker : IHasRandomizer, IHasContext
     /// HashID generator with default (string.Empty) salt.See: https://github.com/ullmark/hashids.net
     /// </summary>
     public Hashids Hashids { get; set; }
+    /// <summary>
+    /// Can parse a handle bar expression like "{{name.lastName}}, {{name.firstName}} {{name.suffix}}".
+    /// </summary>
+    public virtual string Parse(string str)
+    {
+        //you can override.  so if you have other datatypes, then the parse can include them as well.
+        //the faker will support the standard.  this means that the basic registrations will already be done.
+        //any other registrations has to be custom done.
+        return Tokenizer.Parse(str,
+           this.Address,
+           this.Date,
+           this.Events,
+           this.Finance,
+           this.Image,
+           this.Internet,
+           this.Lorem,
+           this.Name,
+           this.Phone,
+           this.Commerce,
+           this.Random);
+    }
 }

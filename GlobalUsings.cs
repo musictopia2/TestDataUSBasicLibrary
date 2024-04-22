@@ -18,3 +18,4 @@ global using System.Net;
 global using jj1 = CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.JsonSerializers.SystemTextJsonStrings;
 global using System.Linq.Expressions;
 global using System.ComponentModel;
+global using TestDataUSBasicLibrary.SourceGeneratorHelpers;
