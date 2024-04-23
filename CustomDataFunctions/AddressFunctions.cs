@@ -36,4 +36,20 @@ public static class AddressFunctions<T>
     {
         return obj.GetRandomListItem("secondary_address");
     };
+    public static Func<BasicList<CityStateClass>> GetCities { get; set; } = () =>
+    {
+        BasicList<string> firsts = rr2.GetTextList();
+        BasicList<CityStateClass> output = [];
+        foreach (var item in firsts)
+        {
+            BasicList<string> list = item.Split(",,").ToBasicList();
+            if (list.Count != 2)
+            {
+                throw new CustomBasicException("Must have 2 items for pairs");
+            }
+            CityStateClass city = new(list.First(), list.Last());
+            output.Add(city);
+        }
+        return output;
+    };
 }

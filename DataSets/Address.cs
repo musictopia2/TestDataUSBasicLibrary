@@ -1,11 +1,33 @@
-﻿using System.IO;
-using ee1 = TestDataUSBasicLibrary.CustomDataFunctions.AddressFunctions<TestDataUSBasicLibrary.DataSets.Address>;
+﻿using ee1 = TestDataUSBasicLibrary.CustomDataFunctions.AddressFunctions<TestDataUSBasicLibrary.DataSets.Address>;
 namespace TestDataUSBasicLibrary.DataSets;
 public class Address : InternalDataSet
 {
     protected override string Category => nameof(Address);
-    internal static IRandomData CustomData => rr3.GetRandomDataClass();
+    internal static IRandomData CustomData => rr4.GetRandomDataClass();
     internal IRandomNumberList CustomRandom => Random;
+    public static bool RequireMatchingCityState { get; set; } = true;
+    private static string _lastCityChosen = "";
+    private static string _lastStateChosen = "";
+    private readonly BasicList<CityStateClass> _cities = [];
+    private readonly BasicList<(string Name, string Abb)> _states = [];
+    public Address()
+    {
+        _cities = ee1.GetCities();
+        Clear();
+        BasicList<string> states = CompleteStates();
+        BasicList<string> abbs = CompleteStateAbbrs();
+        states.Count.Times(x =>
+        {
+            string item1 = states[x - 1];
+            string item2 = abbs[x - 1];
+            _states.Add((item1, item2));
+        });
+    }
+    public static void Clear()
+    {
+        _lastCityChosen = "";
+        _lastStateChosen = "";
+    }
     /// <summary>
     /// Get a zipcode.
     /// </summary>
@@ -81,10 +103,94 @@ public class Address : InternalDataSet
     /// Get a random state state.
     /// </summary>
     /// <returns>A random state.</returns>
-    public virtual string State(string city = "")
+    public string State(string city = "")
     {
-        return GetRandomListItem("state");
-        
+        if (RequireMatchingCityState)
+        {
+            city = _lastCityChosen;
+        }
+        CityStateClass? match = _cities.SingleOrDefault(x => x.City == city);
+        if (match is not null)
+        {
+            string realState = _states.Single(x => x.Abb == match.StateAbb).Name;
+            _lastStateChosen = realState;
+            return realState;
+        }
+        if (RequireMatchingCityState == false)
+        {
+            var item = Random.ListItem(_states);
+            _lastStateChosen = item.Name;
+        }
+        else
+        {
+            BasicList<string> list = _states.Where(x => _cities.Any(y => y.StateAbb == x.Abb)).Select(x => x.Name).ToBasicList();
+            _lastStateChosen = Random.ListItem(list);
+        }
+        return _lastStateChosen;
+
+    }
+
+
+    /// <summary>
+    /// Get a state abbreviation.
+    /// </summary>
+    /// <returns>An abbreviation for a random state.</returns>
+    public string StateAbbr(string city = "")
+    {
+        if (RequireMatchingCityState)
+        {
+            city = _lastCityChosen;
+        }
+        CityStateClass? match = _cities.SingleOrDefault(x => x.City == city);
+        if (match is not null)
+        {
+            _lastStateChosen = match.StateAbb;
+            return match.StateAbb;
+        }
+        if (RequireMatchingCityState == false)
+        {
+            var item = Random.ListItem(_states);
+            _lastStateChosen = item.Abb;
+        }
+        else
+        {
+            BasicList<string> list = _cities.Select(x => x.StateAbb).ToBasicList();
+            _lastStateChosen = Random.ListItem(list);
+        }
+        return _lastStateChosen;
+    }
+    /// <summary>
+    /// Get a city
+    /// </summary>
+    /// <param name="state">if you want a city that belongs in a specified state</param>
+    /// <returns>A city</returns>
+    public string City(string state = "")
+    {
+        if (RequireMatchingCityState == false)
+        {
+            _lastStateChosen = state;
+        }
+
+        CityStateClass? match = Random.ListItem(_cities);
+        _lastCityChosen = match.City;
+        if (RequireMatchingCityState == false && _lastStateChosen == "")
+        {
+            return _lastCityChosen;
+        }
+        if (_lastStateChosen == "")
+        {
+            return _lastCityChosen;
+        }
+        if (_lastStateChosen != "")
+        {
+            _lastStateChosen = _states.Where(x => x.Name.Equals(_lastStateChosen, StringComparison.CurrentCultureIgnoreCase) || x.Abb.Equals(_lastStateChosen, StringComparison.CurrentCultureIgnoreCase)).Select(x => x.Abb).Single();
+        }
+        match = _cities.FirstOrDefault(x => x.StateAbb == _lastStateChosen);
+        if (match is not null)
+        {
+            _lastCityChosen = match.City;
+        }
+        return _lastCityChosen;
     }
     protected BasicList<string> CompleteStates()
     {
@@ -108,14 +214,7 @@ public class Address : InternalDataSet
     }
 
 
-    /// <summary>
-    /// Get a state abbreviation.
-    /// </summary>
-    /// <returns>An abbreviation for a random state.</returns>
-    public virtual string StateAbbr(string city = "")
-    {
-        return GetRandomListItem("state_abbr");
-    }
+   
     /// <summary>
     /// Get a Latitude.
     /// </summary>

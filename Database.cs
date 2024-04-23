@@ -20,7 +20,7 @@ internal static class Database
     private static BObject InitializeBasicData()
     {
         string data = rr1.GetJsonText();
-        BObject output = rr2.GetBsonFromJson(data);
+        BObject output = rr3.GetBsonFromJson(data);
         return output;
     }
     /// <summary>
