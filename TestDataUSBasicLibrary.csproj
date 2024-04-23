@@ -6,11 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="DataSetsNotes\**" />
-    <EmbeddedResource Remove="DataSetsNotes\**" />
-    <None Remove="DataSetsNotes\**" />
-  </ItemGroup>
+  
 	<ItemGroup>
 		<None Remove="BasicTestData.json" />
 	</ItemGroup>
@@ -20,7 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommonBasicLibraries" Version="8.0.36" />
+		<PackageReference Include="CommonBasicLibraries" Version="8.0.37" />
 		<PackageReference Include="JsonTextResourceGenerator" Version="1.0.1" PrivateAssets="all" />
 	</ItemGroup>
 </Project>

@@ -10,7 +10,6 @@ public class Randomizer : IRandomNumberList, IRandomizer
     /// Set the random number generator manually with a seed to get reproducible results.
     /// </summary>
     public static Random Seed { get; set; } = new();
-    public int Test { get; set; }
     internal Lazy<object> _localLocker;
     internal static Lazy<object> _locker = new(() => new object(), LazyThreadSafetyMode.ExecutionAndPublication);
     /// <summary>
