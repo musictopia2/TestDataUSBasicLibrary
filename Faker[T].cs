@@ -537,6 +537,7 @@ public class Faker<T> : IRuleSet<T>
                     finalizer.Action!(FakerHub, instance);
                 }
             }
+            Address.Clear(); //you always needs to clear the address though.
         }
     }
     private readonly object _setterCreateLock = new();
