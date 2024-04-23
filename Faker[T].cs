@@ -510,6 +510,7 @@ public class Faker<T> : IRuleSet<T>
             }
             foreach (var ruleSet in ruleSets)
             {
+                PopulateFromRules(instance, ruleSet);
                 if (Actions.TryGetValue(ruleSet, out var populateActions))
                 {
                     foreach (var action in populateActions.Values)
@@ -517,7 +518,6 @@ public class Faker<T> : IRuleSet<T>
                         PopulateProperty(instance, action);
                     }
                 }
-                PopulateFromRules(instance, ruleSet);
             }
             foreach (var ruleSet in ruleSets)
             {
