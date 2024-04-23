@@ -1,4 +1,5 @@
-﻿using ee1 = TestDataUSBasicLibrary.CustomDataFunctions.AddressFunctions<TestDataUSBasicLibrary.DataSets.Address>;
+﻿using System.IO;
+using ee1 = TestDataUSBasicLibrary.CustomDataFunctions.AddressFunctions<TestDataUSBasicLibrary.DataSets.Address>;
 namespace TestDataUSBasicLibrary.DataSets;
 public class Address : InternalDataSet
 {
@@ -85,6 +86,27 @@ public class Address : InternalDataSet
         return GetRandomListItem("state");
         
     }
+    protected BasicList<string> CompleteStates()
+    {
+        var arr = GetCustomList("state");
+        BasicList<string> output = [];
+        foreach (var item in arr!.FullList)
+        {
+            output.Add(item.StringValue);
+        }
+        return output;
+    }
+    protected BasicList<string> CompleteStateAbbrs()
+    {
+        var arr = GetCustomList("state_abbr");
+        BasicList<string> output = [];
+        foreach (var item in arr!.FullList)
+        {
+            output.Add(item.StringValue);
+        }
+        return output;
+    }
+
 
     /// <summary>
     /// Get a state abbreviation.
