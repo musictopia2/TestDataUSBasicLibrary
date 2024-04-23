@@ -10,8 +10,8 @@ public class Faker<T> : IRuleSet<T>
       new(StringComparer.OrdinalIgnoreCase);
     protected internal readonly Dictionary<string, FinalizeAction<T>> FinalizeActions = new(StringComparer.OrdinalIgnoreCase);
 
-    protected internal readonly MultiDictionary<string, string, PopulateAction<T>> ActionsFromRules =
-     new(StringComparer.OrdinalIgnoreCase);
+    //protected internal readonly MultiDictionary<string, string, PopulateAction<T>> ActionsFromRules =
+    // new(StringComparer.OrdinalIgnoreCase);
     protected internal Dictionary<string, Func<Faker, T>> CreateActions = new(StringComparer.OrdinalIgnoreCase);
     protected internal Dictionary<string, bool> StrictModes = [];
     protected internal bool? IsValid { get; set; }
@@ -177,9 +177,10 @@ public class Faker<T> : IRuleSet<T>
             Action = invoker,
             RuleSet = _currentRuleSet,
             PropertyName = guid,
-            ProhibitInStrictMode = true
+            ProhibitInStrictMode = true,
+            HasSeveralRules = true
         };
-        ActionsFromRules.Add(_currentRuleSet, guid, rule);
+        Actions.Add(_currentRuleSet, guid, rule);
         return this;
     }
     /// <summary>
@@ -510,12 +511,22 @@ public class Faker<T> : IRuleSet<T>
             }
             foreach (var ruleSet in ruleSets)
             {
-                PopulateFromRules(instance, ruleSet);
+                //PopulateFromRules(instance, ruleSet);
                 if (Actions.TryGetValue(ruleSet, out var populateActions))
                 {
+
+                    
+
                     foreach (var action in populateActions.Values)
                     {
-                        PopulateProperty(instance, action);
+                        if (action.HasSeveralRules == false)
+                        {
+                            PopulateProperty(instance, action);
+                        }
+                        else
+                        {
+                            action.Action!.Invoke(FakerHub, instance);
+                        }
                     }
                 }
             }
@@ -525,16 +536,6 @@ public class Faker<T> : IRuleSet<T>
                 {
                     finalizer.Action!(FakerHub, instance);
                 }
-            }
-        }
-    }
-    private void PopulateFromRules(T instance, string? ruleSet)
-    {
-        if (ActionsFromRules.TryGetValue(ruleSet!, out var populateActions))
-        {
-            foreach (var item in populateActions)
-            {
-                item.Value.Action!.Invoke(FakerHub, instance);
             }
         }
     }

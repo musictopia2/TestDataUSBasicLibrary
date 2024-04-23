@@ -28,6 +28,7 @@ public class Rule<T>
 
 public class PopulateAction<T> : Rule<Func<Faker, T, object>>
 {
+    public bool HasSeveralRules { get; set; }
 }
 
 public class FinalizeAction<T> : Rule<Action<Faker, T>>
