@@ -38,7 +38,7 @@ public static class AddressFunctions<T>
     };
     public static Func<BasicList<CityStateClass>> GetCities { get; set; } = () =>
     {
-        BasicList<string> firsts = rr2.GetTextList();
+        BasicList<string> firsts = rr1.CityList.GetTextList();
         BasicList<CityStateClass> output = [];
         foreach (var item in firsts)
         {

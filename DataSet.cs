@@ -5,7 +5,7 @@ namespace TestDataUSBasicLibrary;
 /// </summary>
 public class DataSet : IHasRandomizer
 {
-    protected internal static IRandomData GetCustomData => rr4.GetRandomDataClass();
+    protected internal static IRandomData GetCustomData => rr3.GetRandomDataClass();
     SeedNotifier IHasRandomizer.GetNotifier()
     {
         return Notifier;

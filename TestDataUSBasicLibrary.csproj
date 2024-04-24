@@ -10,10 +10,12 @@
 	<ItemGroup>
 		<None Remove="BasicTestData.json" />
 		<None Remove="Resources\CityList.txt" />
+		<None Remove="Resources\CompleteWords.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<AdditionalFiles Include="Resources\BasicTestData.json" />
+		<AdditionalFiles Include="Resources\CompleteWords.json" />
 	</ItemGroup>
 
 	<ItemGroup>

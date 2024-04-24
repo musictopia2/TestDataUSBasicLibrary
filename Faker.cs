@@ -53,6 +53,7 @@ public class Faker : IHasRandomizer, IHasContext
         Music = Notifier.Flow(new Music());
         Events = Notifier.Flow(new Events());
         Hashids = new Hashids();
+        Words = Notifier.Flow(new Words());
         FinishInit(); //so any other things a custom faker needs to do, it can do.
     }
     protected virtual void FinishInit()
@@ -178,6 +179,11 @@ public class Faker : IHasRandomizer, IHasContext
     /// Generates data related to history events.
     /// </summary>
     public Events Events { get; set; }
+
+    /// <summary>
+    /// Generates data related to Words
+    /// </summary>
+    public Words Words { get; set; }
 
     /// <summary>
     /// Helper method to pick a random element.

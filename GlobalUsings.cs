@@ -4,12 +4,11 @@ global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BasicExte
 global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BsonHelpers;
 global using CommonBasicLibraries.BasicDataSettingsAndProcesses;
 global using CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.RandomGenerator.Advanced;
-global using rr1 = TestDataUSBasicLibrary.Resources.BasicTestData;
-global using rr2 = TestDataUSBasicLibrary.Resources.CityList;
-global using rr3 = CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BsonHelpers.JsonToBson;
+global using rr1 = TestDataUSBasicLibrary.Resources;
+global using rr2 = CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.BsonHelpers.JsonToBson;
 global using System.Text.RegularExpressions;
 global using System.Text;
-global using rr4 = CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.RandomGenerator.RandomHelpers;
+global using rr3 = CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.RandomGenerator.RandomHelpers;
 global using TestDataUSBasicLibrary;
 global using TestDataUSBasicLibrary.DataSets;
 global using System.Globalization;
@@ -20,3 +19,4 @@ global using jj1 = CommonBasicLibraries.AdvancedGeneralFunctionsAndProcesses.Jso
 global using System.Linq.Expressions;
 global using System.ComponentModel;
 global using TestDataUSBasicLibrary.SourceGeneratorHelpers;
+global using TestDataUSBasicLibrary.WordSpecializedClasses;

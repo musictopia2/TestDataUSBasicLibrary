@@ -3,7 +3,7 @@ namespace TestDataUSBasicLibrary.DataSets;
 public class Address : InternalDataSet
 {
     protected override string Category => nameof(Address);
-    internal static IRandomData CustomData => rr4.GetRandomDataClass();
+    internal static IRandomData CustomData => rr3.GetRandomDataClass();
     internal IRandomNumberList CustomRandom => Random;
     public static bool RequireMatchingCityState { get; set; } = true;
     private static string _lastCityChosen = "";
