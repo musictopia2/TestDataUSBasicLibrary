@@ -53,8 +53,16 @@ public class Name : DataSet
     {
         return ee1.FindName(this, firstName, lastName, withPrefix, withSuffix, gender);
     }
+    /// <summary>
+    /// gets social security number.
+    /// </summary>
+    /// <returns></returns>
     public string Ssn()
     {
         return ee1.Ssn(this);
+    }
+    public string JobTitle()
+    {
+        return ee1.JobTitle(this);
     }
 }

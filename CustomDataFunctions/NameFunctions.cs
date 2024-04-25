@@ -10,6 +10,67 @@ public static class NameFunctions<T> where T : Name
         }
         return EnumGender.Female;
     };
+    public static Func<T, string> JobTitle { get; set; } = name =>
+    {
+        BasicList<string> possibleTitles =
+        [
+            "Data Entry Clerk",
+            "Accountant",
+            "Doctor",
+            "Lawyer",
+            "Software Engineer",
+            "Office Assistant",
+            "Dishwasher",
+            "Courtesy Clerk",
+            "Security Guard",
+            "Busboy",
+            "Marketing Manager",
+            "Police Officer",
+            "Fire Fighter",
+            "Preacher",
+            "Secretary",
+            "Receptionist",
+            "Teacher",
+            "Nurse",
+            "Counselor",
+            "Cook",
+            "Bookkeeper",
+            "Accounting Clerk",
+            "Truck Driver",
+            "Supervisor",
+            "Chief Financial Officer",
+            "Artist",
+            "Actor",
+            "Auditor",
+            "Front Desk Clerk",
+            "Payroll Clerk",
+            "Interior Designer",
+            "Video Editor",
+            "Engineer",
+            "Plumber",
+            "Tutor",
+            "Professor",
+            "Flight Attendant",
+            "Barista",
+            "Journalist",
+            "Therapist",
+            "Chemist",
+            "Probation Officer",
+            "Caregiver",
+            "Dentist",
+            "Data Analyst",
+            "Electrical Engineer",
+            "Principal",
+            "Carpenter",
+            "Electrician",
+            "Painter",
+            "Cashier",
+            "Animal Trainer",
+            "Paralegal",
+            "Fitness Instructor"
+        ];
+        return name.Random.ListItem(possibleTitles);
+    };
     public static Func<T, EnumGender?, string> FirstName { get; set; } = (name, gender) =>
     {
         gender ??= name.Gender();
