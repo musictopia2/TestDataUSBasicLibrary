@@ -558,7 +558,7 @@ public class Faker<T> : IRuleSet<T>
             }
             if (details!.Action is null)
             {
-                throw new CustomBasicException($"There was no action specified for {action.PropertyName}.  Try running validations for details.  If validatons was successful, the nbug in system");
+                throw new CustomBasicException($"There was no action specified for {action.PropertyName}.  Try running validations for details.  If validatons was successful, then bug in system");
             }
             details.Action.Invoke(instance, value);
         }
