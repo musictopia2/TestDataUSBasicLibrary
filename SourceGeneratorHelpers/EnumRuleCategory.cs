@@ -1,4 +1,4 @@
-﻿namespace TestDataUSBasicLibrary;
+﻿namespace TestDataUSBasicLibrary.SourceGeneratorHelpers;
 public enum EnumRuleCategory
 {
     Default,
