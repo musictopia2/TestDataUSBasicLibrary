@@ -8,6 +8,13 @@ public class Faker : IHasRandomizer, IHasContext
     //eventually can use this (?)
     Dictionary<string, object> IHasContext.Context { get; } = [];
 
+    private Person? _person;
+
+    /// <summary>
+    /// A contextually relevant fields of a person.
+    /// </summary>
+    public Person Person => _person ??= new Person(_randomizer!, _localDateTimeRef);
+
     /// <summary>
     /// See <see cref="SeedNotifier"/>
     /// </summary>
@@ -269,7 +276,7 @@ public class Faker : IHasRandomizer, IHasContext
     /// </summary>
     internal void NewContext()
     {
-        //person = null;
+        _person = null;
         _capturedGlobalIndex = Interlocked.Increment(ref GlobalUniqueIndex);
         Interlocked.Increment(ref IndexFaker);
     }
