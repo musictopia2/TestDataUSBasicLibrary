@@ -184,9 +184,6 @@ public partial class Internet : DataSet
     /// Generates a random password.
     /// </summary>
     /// <param name="password">Class with all settings needed for password.  Set to null to specify will use default one.</param>
-    /// <param name="memorable">A memorable password (ie: all lower case).</param>
-    /// <param name="regexPattern">Regex pattern that the password should follow.</param>
-    /// <param name="prefix">Password prefix.</param>
     /// <returns>A random password.</returns>
     public string Password(RandomPasswordParameterClass? password = null)
     {
