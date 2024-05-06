@@ -5,8 +5,7 @@ public class Tokenizer
     private static readonly char[] _separator = [','];
     static Tokenizer()
     {
-        //for now.
-        //RegisterMustashMethods(typeof(Faker));
+        rr4.RegisterDataSets(); //hopefully this simple.  this is for sure one set you have to register.  can have others too.
     }
     private static void SetObjectsForFilters(BasicList<DataSetClassModel> filters, object[] dataSets, string className)
     {

@@ -20,3 +20,4 @@ global using System.Linq.Expressions;
 global using System.ComponentModel;
 global using TestDataUSBasicLibrary.SourceGeneratorHelpers;
 global using TestDataUSBasicLibrary.WordSpecializedClasses;
+global using rr4 = TestDataUSBasicLibrary.TestGenerators.RegisterTestParsing;

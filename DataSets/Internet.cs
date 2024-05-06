@@ -198,7 +198,7 @@ public partial class Internet : DataSet
     /// <param name="grayscale">Output a gray scale color</param>
     /// <param name="format">The color format</param>
     /// <returns>A random color.</returns>
-    public string Color(byte baseRed = 0, byte baseGreen = 0, byte baseBlue = 0, bool grayscale = false, EnumColorFormat format = EnumColorFormat.Hex)
+    public string ColorRGB(byte baseRed = 0, byte baseGreen = 0, byte baseBlue = 0, bool grayscale = false, EnumColorFormat format = EnumColorFormat.Hex)
     {
         var red = Math.Floor((Random.Number(256) + (double)baseRed) / 2);
         var green = Math.Floor((Random.Number(256) + (double)baseGreen) / 2);

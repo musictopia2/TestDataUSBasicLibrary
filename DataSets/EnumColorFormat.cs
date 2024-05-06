@@ -4,7 +4,7 @@ public enum EnumColorFormat
     /// <summary>
     /// Hexadecimal format: #4d0e68
     /// </summary>
-    Hex = 0x1,
+    Hex = 1, //trying to make it 1 since the source generators can't pick up otherwise.
     /// <summary>
     /// CSS format: rgb(77,14,104)
     /// </summary>

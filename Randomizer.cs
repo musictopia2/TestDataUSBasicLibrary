@@ -2,7 +2,7 @@
 /// <summary>
 /// A randomizer that randomizes things.
 /// </summary>
-public class Randomizer : IRandomNumberList, IRandomizer
+public class Randomizer : IRandomNumberList, IRandomizer, IMustashable
 {
     //bogus just used the built in random.  i will follow that sample.
 

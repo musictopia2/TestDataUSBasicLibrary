@@ -21,10 +21,14 @@
 	<ItemGroup>
 		<PackageReference Include="CommonBasicLibraries" Version="8.0.37" />
 		<PackageReference Include="JsonTextResourceGenerator" Version="1.0.1" PrivateAssets="all" />
+		<PackageReference Include="TestDataBasicGenerator" Version="1.0.1" PrivateAssets="all" />
 		<PackageReference Include="TxtToListGenerator" Version="1.0.3" PrivateAssets="all" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <AdditionalFiles Include="Resources\CityList.txt" />
 	</ItemGroup>
+
+
+	
 </Project>

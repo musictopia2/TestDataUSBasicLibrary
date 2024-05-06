@@ -3,7 +3,7 @@ namespace TestDataUSBasicLibrary;
 /// <summary>
 /// Data set methods that access specialized data
 /// </summary>
-public class DataSet : IHasRandomizer
+public class DataSet : IHasRandomizer, IMustashable
 {
     protected internal static IRandomData GetCustomData => rr3.GetRandomDataClass();
     SeedNotifier IHasRandomizer.GetNotifier()
