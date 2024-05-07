@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+<Version>8.0.1</Version>
   </PropertyGroup>
 
   
@@ -21,7 +22,9 @@
 	<ItemGroup>
 		<PackageReference Include="CommonBasicLibraries" Version="8.0.37" />
 		<PackageReference Include="JsonTextResourceGenerator" Version="1.0.1" PrivateAssets="all" />
-		<PackageReference Include="TestDataBasicGenerator" Version="1.0.1" PrivateAssets="all" />
+		
+		<PackageReference Include="TestDataBasicGenerator" Version="1.0.2" PrivateAssets="all" />
+		
 		<PackageReference Include="TxtToListGenerator" Version="1.0.3" PrivateAssets="all" />
 	</ItemGroup>
 

@@ -621,4 +621,58 @@ public class Randomizer : IRandomNumberList, IRandomizer, IMustashable
             return (int)Math.Floor(LocalSeed.NextDouble() * (max - min) + min);
         }       
     }
+    /// <summary>
+    /// Picks a random enum value in T:Enum.
+    /// </summary>
+    /// <typeparam name="T">Must be an Enum</typeparam>
+    /// <param name="exclude">Exclude enum values from being returned</param>
+    public T Enum<T>(params T[] exclude) where T : struct, Enum
+    {
+        var e = typeof(T);
+        var selection = System.Enum.GetNames(e).ToBasicList();
+        if (exclude.Length != 0)
+        {
+            var excluded = exclude.Select(ex => System.Enum.GetName(e, ex));
+            selection = selection.Except(excluded).ToBasicList()!;
+        }
+        if (selection.Count == 0)
+        {
+            throw new ArgumentException("There are no values after exclusion to choose from.");
+        }
+        var val = ListItem(selection);
+        _ = System.Enum.TryParse(val, out T picked);
+        return picked;
+    }
+
+    /// <summary>
+    /// Picks a random subset of enum values in T:Enum.
+    /// </summary>
+    /// <typeparam name="T">The enum.</typeparam>
+    /// <param name="count">The number of enums to pick.</param>
+    /// <param name="exclude">Any enums that should be excluded before picking.</param>
+    public BasicList<T> EnumStandardValues<T>(int? count = null, params T[] exclude) where T : Enum
+    {
+        BasicList<T> enums;
+        if (exclude.Length > 0)
+        {
+            enums = System.Enum.GetValues(typeof(T))
+               .OfType<T>()
+               .Except(exclude)
+               .ToBasicList();
+        }
+        else
+        {
+            enums = System.Enum.GetValues(typeof(T))
+               .OfType<T>()
+               .Except(exclude)
+               .ToBasicList();
+        }
+
+        if (count > enums.Count || count < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(count), count,
+            $"The {nameof(count)} parameter is {count} and the calculated set of enums has a length of {enums.Count}. It is impossible to pick {count} enums from a list of {enums.Count}.");
+        }
+        return ListItems (enums, count).ToBasicList();
+    }
 }
