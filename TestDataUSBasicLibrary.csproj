@@ -18,10 +18,10 @@
     <AdditionalFiles Include="Resources\CompleteWords.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CommonBasicLibraries" Version="10.0.1" />
-    <PackageReference Include="JsonTextResourceGenerator" Version="1.0.1" PrivateAssets="all" />
-    <PackageReference Include="TestDataBasicGenerator" Version="1.0.3" PrivateAssets="all" />
-    <PackageReference Include="TxtToListGenerator" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="CommonBasicLibraries" Version="10.0.13" />
+    <PackageReference Include="JsonTextResourceGenerator" Version="1.0.4" PrivateAssets="all" />
+    <PackageReference Include="TestDataBasicGenerator" Version="1.0.5" PrivateAssets="all" />
+    <PackageReference Include="TxtToListGenerator" Version="1.0.5" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="Resources\CityList.txt" />

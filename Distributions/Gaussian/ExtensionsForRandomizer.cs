@@ -57,74 +57,78 @@ public static class ExtensionsForRandomizer
         }
     }
 
-
-    /// <summary>
-    /// Generate a random double, based on the specified normal distribution.
-    /// <example>
-    /// To create random values around an average height of 69.1
-    /// inches with a standard deviation of 2.9 inches away from the mean
-    /// <code>
-    /// GaussianDouble(69.1, 2.9)
-    /// </code>
-    /// </example>
-    /// </summary>
-    /// <param name="mean">Mean value of the normal distribution</param>
-    /// <param name="standardDeviation">Standard deviation of the normal distribution</param>
-    public static double GaussianDouble(this Randomizer rnd, double mean, double standardDeviation)
+    extension (Randomizer rnd)
     {
-        double p = InverseNCD(rnd.Double(0D, 1D));
-        return p * standardDeviation + mean;
+        /// <summary>
+        /// Generate a random double, based on the specified normal distribution.
+        /// <example>
+        /// To create random values around an average height of 69.1
+        /// inches with a standard deviation of 2.9 inches away from the mean
+        /// <code>
+        /// GaussianDouble(69.1, 2.9)
+        /// </code>
+        /// </example>
+        /// </summary>
+        /// <param name="mean">Mean value of the normal distribution</param>
+        /// <param name="standardDeviation">Standard deviation of the normal distribution</param>
+        public double GaussianDouble(double mean, double standardDeviation)
+        {
+            double p = InverseNCD(rnd.Double(0D, 1D));
+            return p * standardDeviation + mean;
+        }
+
+        /// <summary>
+        /// Generate a random int, based on the specified normal distribution.
+        /// <example>
+        /// To create random int values around an average age of 35 years, with
+        /// a standard deviation of 4 years away from the mean.
+        /// </example>
+        /// <code>
+        /// call GaussianInt(35, 4)
+        /// </code>
+        /// </summary>
+        /// <param name="mean">Mean average of the normal distribution</param>
+        /// <param name="standardDeviation">Standard deviation of the normal distribution</param>
+        public int GaussianInt(double mean, double standardDeviation)
+        {
+            return Convert.ToInt32(rnd.GaussianDouble(mean, standardDeviation));
+        }
+
+        /// <summary>
+        /// Generate a float decimal, based on the specified normal distribution.
+        /// <example>
+        /// To create random float values around an average height of 69.1
+        /// inches with a standard deviation of 2.9 inches away from the mean
+        /// <code>
+        /// GaussianFloat(69.1, 2.9)
+        /// </code>
+        /// </example>
+        /// </summary>
+        /// <param name="mean">Mean average of the normal distribution</param>
+        /// <param name="standardDeviation">Standard deviation of the normal distribution</param>
+        public float GaussianFloat(double mean, double standardDeviation)
+        {
+            return Convert.ToSingle(rnd.GaussianDouble(mean, standardDeviation));
+        }
+
+        /// <summary>
+        /// Generate a random decimal, based on the specified normal distribution.
+        /// <example>
+        /// To create random values around an average height of 69.1
+        /// inches with a standard deviation of 2.9 inches away from the mean
+        /// <code>
+        /// GaussianDecimal(69.1, 2.9)
+        /// </code>
+        /// </example>
+        /// </summary>
+        /// <param name="mean">Mean average of the normal distribution</param>
+        /// <param name="standardDeviation">Standard deviation of the normal distribution</param>
+        public decimal GaussianDecimal(double mean, double standardDeviation)
+        {
+            return Convert.ToDecimal(rnd.GaussianDouble(mean, standardDeviation));
+        }
     }
 
-    /// <summary>
-    /// Generate a random int, based on the specified normal distribution.
-    /// <example>
-    /// To create random int values around an average age of 35 years, with
-    /// a standard deviation of 4 years away from the mean.
-    /// </example>
-    /// <code>
-    /// call GaussianInt(35, 4)
-    /// </code>
-    /// </summary>
-    /// <param name="mean">Mean average of the normal distribution</param>
-    /// <param name="standardDeviation">Standard deviation of the normal distribution</param>
-    public static int GaussianInt(this Randomizer rnd, double mean, double standardDeviation)
-    {
-        return Convert.ToInt32(rnd.GaussianDouble(mean, standardDeviation));
-    }
-
-    /// <summary>
-    /// Generate a float decimal, based on the specified normal distribution.
-    /// <example>
-    /// To create random float values around an average height of 69.1
-    /// inches with a standard deviation of 2.9 inches away from the mean
-    /// <code>
-    /// GaussianFloat(69.1, 2.9)
-    /// </code>
-    /// </example>
-    /// </summary>
-    /// <param name="mean">Mean average of the normal distribution</param>
-    /// <param name="standardDeviation">Standard deviation of the normal distribution</param>
-    public static float GaussianFloat(this Randomizer rnd, double mean, double standardDeviation)
-    {
-        return Convert.ToSingle(rnd.GaussianDouble(mean, standardDeviation));
-    }
-
-    /// <summary>
-    /// Generate a random decimal, based on the specified normal distribution.
-    /// <example>
-    /// To create random values around an average height of 69.1
-    /// inches with a standard deviation of 2.9 inches away from the mean
-    /// <code>
-    /// GaussianDecimal(69.1, 2.9)
-    /// </code>
-    /// </example>
-    /// </summary>
-    /// <param name="mean">Mean average of the normal distribution</param>
-    /// <param name="standardDeviation">Standard deviation of the normal distribution</param>
-    public static decimal GaussianDecimal(this Randomizer rnd, double mean, double standardDeviation)
-    {
-        return Convert.ToDecimal(rnd.GaussianDouble(mean, standardDeviation));
-    }
+    
 
 }

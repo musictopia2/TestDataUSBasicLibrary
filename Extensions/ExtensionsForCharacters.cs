@@ -1,13 +1,16 @@
 ﻿namespace TestDataUSBasicLibrary.Extensions;
 internal static class ExtensionsForCharacters
 {
-    public static string GetString(this IBasicList<char> list)
+    extension (IBasicList<char> list)
     {
-        StrCat cats = new();
-        foreach (char c in list)
+        public string GetString()
         {
-            cats.AddToString(c.ToString());
+            StrCat cats = new();
+            foreach (char c in list)
+            {
+                cats.AddToString(c.ToString());
+            }
+            return cats.GetInfo();
         }
-        return cats.GetInfo();
     }
 }

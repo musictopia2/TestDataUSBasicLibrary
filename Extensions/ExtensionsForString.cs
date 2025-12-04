@@ -5,44 +5,47 @@
 /// </summary>
 public static class ExtensionsForString
 {
-    /// <summary>
-    /// Clamps the length of a string filling between min and max characters.
-    /// If the string is below the minimum, the string is appended with paddingChar up to the minimum length.
-    /// If the string is over the maximum, the string is truncated at maximum characters; additionally, if the result string ends with
-    /// whitespace, it is replaced with a paddingChar characters.
-    /// </summary>
-    public static string ClampLength(this string str, int? min = null, int? max = null, char paddingChar = 'A')
+    extension (string payLoad)
     {
-        if (max != null && str.Length > max)
+        /// <summary>
+        /// Clamps the length of a string filling between min and max characters.
+        /// If the string is below the minimum, the string is appended with paddingChar up to the minimum length.
+        /// If the string is over the maximum, the string is truncated at maximum characters; additionally, if the result string ends with
+        /// whitespace, it is replaced with a paddingChar characters.
+        /// </summary>
+        public string ClampLength(int? min = null, int? max = null, char paddingChar = 'A')
         {
-            str = str.Substring(0, max.Value).Trim();
-        }
-        if (min != null && min > str.Length)
-        {
-            var missingChars = min - str.Length;
-            var fillerChars = "".PadRight(missingChars.Value, paddingChar);
-            return str + fillerChars;
-        }
-        return str;
-    }
-
-    /// <summary>
-    /// A string extension method that removes the diacritics character from the strings.
-    /// </summary>
-    /// <param name="this">The @this to act on.</param>
-    /// <returns>The string without diacritics character.</returns>
-    public static string RemoveDiacritics(this string @this)
-    {
-        string normalizedString = @this.Normalize(NormalizationForm.FormD);
-        var sb = new StringBuilder();
-        foreach (char t in normalizedString)
-        {
-            UnicodeCategory uc = CharUnicodeInfo.GetUnicodeCategory(t);
-            if (uc != UnicodeCategory.NonSpacingMark)
+            if (max != null && payLoad.Length > max)
             {
-                sb.Append(t);
+                payLoad = payLoad.Substring(0, max.Value).Trim();
             }
+            if (min != null && min > payLoad.Length)
+            {
+                var missingChars = min - payLoad.Length;
+                var fillerChars = "".PadRight(missingChars.Value, paddingChar);
+                return payLoad + fillerChars;
+            }
+            return payLoad;
         }
-        return sb.ToString().Normalize(NormalizationForm.FormC);
+
+        /// <summary>
+        /// A string extension method that removes the diacritics character from the strings.
+        /// </summary>
+        /// <returns>The string without diacritics character.</returns>
+        public string RemoveDiacritics()
+        {
+            string normalizedString = payLoad.Normalize(NormalizationForm.FormD);
+            var sb = new StringBuilder();
+            foreach (char t in normalizedString)
+            {
+                UnicodeCategory uc = CharUnicodeInfo.GetUnicodeCategory(t);
+                if (uc != UnicodeCategory.NonSpacingMark)
+                {
+                    sb.Append(t);
+                }
+            }
+            return sb.ToString().Normalize(NormalizationForm.FormC);
+        }
     }
+    
 }
